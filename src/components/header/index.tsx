@@ -1,65 +1,43 @@
 import React, { useState } from "react";
 import { FaGithub } from "react-icons/fa";
-import { MdOutlineTranslate, MdOutlineDarkMode, MdOutlineLightMode } from "react-icons/md";
+import { DarkModeToggle } from "../darkModeTogleButton";
+import { TranslateTogleButton } from "../translateTogleButton";
+import { useTranslation } from "react-i18next";
 
 interface HeaderProps extends React.HTMLAttributes<HTMLElement> {}
 
 const Header: React.FC<HeaderProps> = () => {
-  // Estado para controlar o dark mode
-  const [darkMode, setDarkMode] = useState(false);
-
-  const toggleDarkMode = () => {
-    setDarkMode((prev) => !prev);
-    // Alterna a classe "dark" no elemento root (html)
-    if (document.documentElement.classList.contains("dark")) {
-      document.documentElement.classList.remove("dark");
-    } else {
-      document.documentElement.classList.add("dark");
-    }
-  };
-
-  // Handler para ação de tradução (implemente sua lógica)
-  const handleTranslate = () => {
-    console.log("Acionar tradução");
-    // Aqui você pode chamar uma função para alterar o idioma da sua aplicação
-  };
-
+  const { t } = useTranslation();
   return (
     <header className="dark:bg-stone-950 bg-white flex h-16 shadow-2xl drop-shadow-md p-4 items-center">
       <div className="flex-1">
-        <p className="text-white text-2xl">Portifolio</p>
+        <p className="dark:text-white text-neutral-900 text-2xl">{t("portfolio")}</p>
       </div>
 
       <nav className="w-1/2 flex justify-end items-center space-x-6">
-        <a href="#about" className="text-white text-xl hover:text-gray-300 transition-colors">
-          Sobre
+        <a href="#about" className="dark:text-white text-neutral-900  dark:hover:text-gray-400 hover:text-neutral-500 transition-colors">
+          {t("about")}
         </a>
-        <a href="#projects" className="text-white text-xl hover:text-gray-300 transition-colors">
-          Projetos
+        <a href="#projects" className="dark:text-white text-neutral-900   dark:hover:text-gray-400 hover:text-neutral-500 transition-colors">
+         
+          {t("projects")}
         </a>
-        <a href="#contact" className="text-white text-xl hover:text-gray-300 transition-colors">
-          Contato
+        <a href="#contact" className="dark:text-white text-neutral-900  dark:hover:text-gray-400 hover:text-neutral-500 transition-colors">
+          {t("contact")}  
         </a>
+
+        <TranslateTogleButton />
+
+        <DarkModeToggle />
+
         <a
-          href="https://github.com/seuusuario"  // substitua pelo seu URL
+          href="https://github.com/GabrielBuche/portifolio" 
           target="_blank"
           rel="noopener noreferrer"
           title="GitHub"
         >
-          <FaGithub className="text-white text-xl hover:text-gray-300 transition-colors" />
+          <FaGithub className="dark:text-white text-neutral-900 text-xl dark:hover:text-gray-400 hover:text-neutral-500  transition-colors" />
         </a>
-
-        <button onClick={handleTranslate} title="Traduzir">
-          <MdOutlineTranslate className="text-white text-xl hover:text-gray-300 transition-colors" />
-        </button>
-
-        <button onClick={toggleDarkMode} title="Alternar Modo Escuro">
-          {darkMode ? (
-            <MdOutlineLightMode className="text-white text-xl hover:text-gray-300 transition-colors" />
-          ) : (
-            <MdOutlineDarkMode className="text-white text-xl hover:text-gray-300 transition-colors" />
-          )}
-        </button>
 
       </nav>
     </header>
